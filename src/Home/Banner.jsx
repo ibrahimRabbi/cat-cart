@@ -5,12 +5,14 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Outlet } from "react-router-dom";
 
 const Banner = () => {
 
   
   return (
-    <div>
+    <section>
+      <Outlet/>
       <Swiper
         spaceBetween={30}
         effect={"fade"}
@@ -33,7 +35,7 @@ const Banner = () => {
           <img src="https://i.ibb.co/MNPTr5P/png-20230802-011409-0000.png"/>
         </SwiperSlide>
       </Swiper>
-    </div>
+    </section>
   );
 };
 
