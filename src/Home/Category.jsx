@@ -53,7 +53,7 @@ const Category = () => {
                 </div>
             </Link>
 
-            <a href="">
+            <Link to="books">
                 <div className="bg-slate-100 py-2 px-6 rounded-md shadow-lg">
                     <div className="CH-text font-sans font-semibold">BOOKS</div>
                     <img
@@ -62,9 +62,9 @@ const Category = () => {
                     />
                     <button className="underline">See All</button>
                 </div>
-            </a>
+            </Link>
 
-            <a href="">
+            <Link to="electronics">
                 <div className="bg-slate-100 py-2 px-6 rounded-md shadow-lg">
                     <div className="CH-text font-sans font-semibold">
                         GADGET & ELECTRONICS
@@ -75,7 +75,7 @@ const Category = () => {
                     />
                     <button className="underline">See All</button>
                 </div>
-            </a>
+            </Link>
 
             <Link to="personalCare">
                 <div className="bg-slate-100 py-2 px-6 rounded-md shadow-lg">
@@ -90,7 +90,7 @@ const Category = () => {
                 </div>
             </Link>
 
-            <a href="">
+            <Link to="household">
                 <div className="bg-slate-100 py-2 px-6 rounded-md shadow-lg">
                     <div className="CH-text font-sans font-semibold">
                         HOUSEHOLD & STATIONERY
@@ -101,7 +101,7 @@ const Category = () => {
                     />
                     <button className="underline">See All</button>
                 </div>
-            </a>
+            </Link>
         </section>
     );
 };
