@@ -47,8 +47,8 @@ const Navber = () => {
                 <div className=" flex items-center gap-4">
 
 
-                    <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className=" mt-2 btn btn-ghost btn-circle">
+                    <Link to='/cart' className="dropdown dropdown-end">
+                        <label  tabIndex={0} className=" mt-2 btn btn-ghost btn-circle">
                             <div className="indicator">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@ const Navber = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
 
 
 

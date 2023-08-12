@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
  
 
-
-
-
 const Card = ({ obj }) => {
     const { _id, img, title, specification, price } = obj
 

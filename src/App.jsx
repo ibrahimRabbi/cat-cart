@@ -1,9 +1,9 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Banner from "./Home/Banner";
-import Navber from "./Home/Navbar";
 import Layout from "./Layout/Layout";
 import Home from "./Home/Home";
 import CategoryData from "./CategoryData/CategoryData";
+import SingleData from "./SingelData/SingleData";
+import Cart from "./cart/Cart";
 
  
 
@@ -20,8 +20,17 @@ const App = () => {
         {
           path: '/:category',
           element: <CategoryData/> ,
-          loader: ({ params }) => fetch(`http://localhost:5000/${params.category}`)
+          loader: ({ params }) => fetch(`http://localhost:5000/category/${params.category}`)
+        },
+        {
+          path: '/:category/:id',
+          element:<SingleData/>
+        },
+        {
+          path: '/cart',
+          element: <Cart/>
         }
+
       ]
      }
    ])
