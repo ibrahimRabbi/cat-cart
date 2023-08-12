@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 
 
 
 const Card = ({ data }) => {
     const { img, size, qunty, title, price, _id: id } = data;
-
+    const [remove, setRemove] = useState()
+     
 
     const deleteHandler = () => {
         fetch(`http://localhost:5000/cart/${id}`, { method: 'DELETE' })
@@ -14,14 +15,12 @@ const Card = ({ data }) => {
     }
 
 
-
-
     return (
         <section>
              <div className="flex items-start gap-6 border p-4 rounded-lg shadow-md bg-slate-100">
                 <div className="avatar">
                     <div className="w-32 rounded-xl">
-                        <img src={img} alt="" />
+                        <img src={img} alt=""/>
                     </div>
                 </div>
 

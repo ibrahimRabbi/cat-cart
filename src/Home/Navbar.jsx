@@ -1,15 +1,22 @@
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import useCart from "../coustomHooks/useCart";
 
 const Navber = () => {
+
+     const {subTotal,totalQunty} = useCart()
+
+
+
+
     return (
-        <nav className="navbar bg-slate-100">
+        <nav className=" bg-slate-100">
             <div className="w-[90%] mx-auto flex justify-between items-center">
                 {/* navbar start */}
                 <div className="">
                     <Link to="/">
-                        <img className="w-[110px] lg:w-[140px]" src="https://i.ibb.co/DrsKz2x/cat-cart.png" />
+                        <img className="w-[110px] lg:w-[140px]" src="https://i.ibb.co/6tshLqX/IMG-20230813-000938.png"/>
                     </Link>
                 </div>
 
@@ -47,7 +54,7 @@ const Navber = () => {
                 <div className=" flex items-center gap-4">
 
 
-                    <Link to='/cart' className="dropdown dropdown-end">
+                    <div className="dropdown dropdown-end">
                         <label  tabIndex={0} className=" mt-2 btn btn-ghost btn-circle">
                             <div className="indicator">
                                 <svg
@@ -64,21 +71,21 @@ const Navber = () => {
                                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                                     />
                                 </svg>
-                                <span className="badge badge-warning badge-sm indicator-item">8</span>
+                                <span className="badge badge-warning badge-sm indicator-item">{totalQunty}</span>
                             </div>
                         </label>
                         <div tabIndex={0} className=" z-10 card card-compact dropdown-content w-52 bg-base-100 shadow">
                             <div className="card-body">
-                                <span className="font-bold text-lg">8 Items</span>
-                                <span className="text-info">Subtotal: $999</span>
+                                <span className="font-bold text-lg">{totalQunty} items</span>
+                                <span className="text-info">Subtotal: {subTotal}-TK</span>
                                 <div className="card-actions">
-                                    <button className="btn btn-primary btn-block">
+                                    <Link to='/cart' className="bg-amber-500 p-2 text-center rounded-lg font-semibold btn-block">
                                         View cart
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
-                    </Link>
+                    </div>
 
 
 

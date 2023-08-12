@@ -2,23 +2,20 @@ import React, { useEffect, useState } from "react";
 import Card from "./Cart_Card";
 import Sum from "./Sum";
 import './cart.css'
+import useCart from "../coustomHooks/useCart";
+
+
+
 const Cart = () => {
-    const [cartData, setCartData] = useState([]);
 
-    useEffect(() => {
-        fetch("http://localhost:5000/cart")
-            .then((res) => res.json())
-            .then((res) => setCartData(res));
-    }, [cartData]);
-
+    const { cartData } = useCart()
    
-
     return (
-        <section className="cart my-10 w-[90%] mx-auto grid gap-10 ">
+        <section className="cart relative my-10 w-[90%] mx-auto grid gap-10 ">
             <div className="space-y-3">
                 { cartData.map((v) => <Card key={v._id} data={v}/>)}
             </div>
-            <Sum data={cartData} />
+            <Sum/>
         </section>
     );
 };
