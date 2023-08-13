@@ -11,7 +11,7 @@ const Card = ({ obj }) => {
                 <img className="h-[240px] w-full" src={img} alt="T-shirt" />
             </Link>
             <div className="card-body">
-                <Link to={_id}>
+                <Link className='hover:text-amber-600 duration-100' to={_id}>
                     <h2 className="card-title">{title}</h2>
                 </Link>
                 <p>{specification}</p>

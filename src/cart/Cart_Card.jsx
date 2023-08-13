@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
+import useCart from "../coustomHooks/useCart";
 
 
 
 const Card = ({ data }) => {
     const { img, size, qunty, title, price, _id: id } = data;
-    const [remove, setRemove] = useState()
-     
+     const {refetch} = useCart()
 
     const deleteHandler = () => {
         fetch(`http://localhost:5000/cart/${id}`, { method: 'DELETE' })
             .then((res) => res.json())
-            .then((res) => console.log(res));
+            .then(() => {
+                refetch()
+            });
     }
 
 

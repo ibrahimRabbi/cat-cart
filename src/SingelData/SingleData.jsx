@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import Swal from 'sweetalert2';
+import useCart from '../coustomHooks/useCart';
 
 const SingleData = () => {
     const { id, category } = useParams()
@@ -10,6 +11,7 @@ const SingleData = () => {
     const [qunty, setQunty] = useState(1);
     const [size, setSize] = useState('')
     const navigate = useNavigate()
+    const {refetch} = useCart()
     const images = [];
 
      
@@ -54,6 +56,7 @@ const SingleData = () => {
             .then(res => {
                 if (res?.insertedId) {
                     navigate(`/${category}`)
+                    refetch()
                     Swal.fire({
                         title: `${data.title} has been added to the cart`,
                         text: `quantity: ${qunty} size: ${size}`,

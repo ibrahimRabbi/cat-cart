@@ -1,13 +1,13 @@
-import React from "react";
-import { FaShoppingCart } from "react-icons/fa";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import useCart from "../coustomHooks/useCart";
+import { Context } from "../Authentication/AuthContext";
+
 
 const Navber = () => {
 
      const {subTotal,totalQunty} = useCart()
-
-
+    const { user } = useContext(Context)
 
 
     return (
@@ -77,7 +77,7 @@ const Navber = () => {
                         <div tabIndex={0} className=" z-10 card card-compact dropdown-content w-52 bg-base-100 shadow">
                             <div className="card-body">
                                 <span className="font-bold text-lg">{totalQunty} items</span>
-                                <span className="text-info">Subtotal: {subTotal}-TK</span>
+                                <span className="text-info">Subtotal:{subTotal}-TK</span>
                                 <div className="card-actions">
                                     <Link to='/cart' className="bg-amber-500 p-2 text-center rounded-lg font-semibold btn-block">
                                         View cart
@@ -90,11 +90,13 @@ const Navber = () => {
 
 
 
-                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-20 rounded-full">
-                            <img src="https://i.ibb.co/9rhK6WJ/FB-IMG-1690052120871.jpg" />
-                        </div>
-                    </label>
+                    <div className="tooltip tooltip-bottom z-10" data-tip={user?.displayName}>
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                            <div className="w-20 rounded-full">
+                                <img src={user?.photoURL} />
+                            </div>
+                        </label>
+                    </div>
 
 
                 </div>
