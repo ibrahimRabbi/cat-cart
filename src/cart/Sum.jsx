@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import useCart from "../coustomHooks/useCart";
+import { Context } from "../Authentication/AuthContext";
  
 
 const Sum = () => {
 
     const {subTotal,totalAmount,totalQunty,totalDiscount,totalVat} = useCart()
-
+    const { user } = useContext(Context)
+    
+    const tran_history = {
+        amount: totalAmount,
+        name: user.displayName,
+        email: user.email,
+        currency: 'BDT',
+        phone: 8801986711517,
+}
+    const clickHandler = () => {
+        fetch('http://localhost:5000/payment', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body : JSON.stringify(tran_history)   
+        })
+        .then(res => res.json())
+            .then(res => {
+            window.location.replace(res.url)
+        })
+    }
     return (
         <div className="">
              
@@ -16,7 +36,7 @@ const Sum = () => {
                     <h1 className="font-semibold rounded-lg mt-2">Discount : {totalDiscount}-TK</h1>
                     <div className="divider"></div>
                     <h1 className="text-2xl text-gray-900 font-semibold rounded-lg mt-2">Sub Total : {subTotal}-TK</h1>
-                <button className="bg-amber-500 p-2.5 text-center w-full rounded-lg mt-8 font-semibold text-gray-950 hover:bg-amber-600 hover:scale-90 hover:duration-75">Check Out</button>
+                <button onClick={clickHandler} className="bg-amber-500 btn text-center w-full rounded-lg mt-8 font-semibold text-gray-950 hover:bg-amber-600 hover:scale-90 hover:duration-75">Check Out</button>
                 </div>
                 
            
