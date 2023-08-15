@@ -7,6 +7,7 @@ import Cart from "./cart/Cart";
 import {QueryClient,QueryClientProvider} from '@tanstack/react-query'
 import SignUp from "./form/Signup";
 import AuthContext from "./Authentication/AuthContext";
+import Payment from "./payment/Payment";
  
 const queryClient = new QueryClient()
 
@@ -39,7 +40,11 @@ const App = () => {
         }
 
       ]
-     }
+    },
+    {
+      path: '/payment/success/:id',
+      element:<Payment/>
+    }
    ])
  
   
