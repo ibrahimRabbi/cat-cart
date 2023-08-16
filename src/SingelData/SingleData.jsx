@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import Swal from 'sweetalert2';
 import useCart from '../coustomHooks/useCart';
+import { Context } from '../Authentication/AuthContext';
 
 const SingleData = () => {
     const { id, category } = useParams()
@@ -11,7 +12,8 @@ const SingleData = () => {
     const [qunty, setQunty] = useState(1);
     const [size, setSize] = useState('')
     const navigate = useNavigate()
-    const {refetch} = useCart()
+    const { refetch } = useCart()
+    const {user} = useContext(Context)
     const images = [];
 
      
@@ -44,7 +46,8 @@ const SingleData = () => {
             title: data.title,
             price: data.price,
             qunty,size,
-            productId: data._id
+            productId: data._id,
+            email:user?.email
         }
 
         fetch("http://localhost:5000/cart", {

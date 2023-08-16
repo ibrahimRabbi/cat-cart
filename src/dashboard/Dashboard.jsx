@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../Authentication/AuthContext';
 import { Link } from 'react-router-dom';
 import { FcSettings } from 'react-icons/fc'
+import useOrderHistory from '../coustomHooks/useOrderHistory';
 
 
 const Dashboard = () => {
     const { user } = useContext(Context)
     const [userData, setUserData] = useState({})
-    console.log(userData)
+    const { orderData } = useOrderHistory()
+    
     useEffect(() => {
         fetch(`http://localhost:5000/user?email=${user?.email}`)
             .then(res => res.json())
@@ -26,10 +28,36 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            <h1 className='mt-14 text-2xl font-semibold'>Payment History</h1>
-            <hr />
-            <div>
-
+                <h1 className='mt-14 text-2xl font-semibold'>Payment History</h1>
+                     
+            <div className='mt-5'>
+                <div className="overflow-x-auto">
+                    <table className="table">
+                        {/* head */}
+                        <thead className='bg-amber-500 text-gray-600 text-base'>
+                            <tr>
+                                <th>S.N</th>
+                                <th>Transection ID</th>
+                                <th>Payment</th>
+                                <th>Favorite Color</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                orderData.map((v,index) => {
+                                    return (
+                                        <tr>
+                                            <th>{index+1}</th>
+                                            <td>{v.tran_id}</td>
+                                            <td>{v.pay}</td>
+                                            <td>{v.date}</td>
+                                        </tr>
+                                   )
+                               }) 
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     );
