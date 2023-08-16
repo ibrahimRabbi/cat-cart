@@ -8,6 +8,7 @@ import {QueryClient,QueryClientProvider} from '@tanstack/react-query'
 import SignUp from "./form/Signup";
 import AuthContext from "./Authentication/AuthContext";
 import Payment from "./payment/Payment";
+import Dashboard from "./dashboard/Dashboard";
  
 const queryClient = new QueryClient()
 
@@ -37,6 +38,10 @@ const App = () => {
         {
           path: '/Signup',
           element: <SignUp/>
+        },
+        {
+          path: '/dashboard',
+          element : <Dashboard/>
         }
 
       ]

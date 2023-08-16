@@ -90,12 +90,20 @@ const Navber = () => {
 
 
 
-                    <div className="tooltip tooltip-bottom z-10" data-tip={user?.displayName}>
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                            <div className="w-20 rounded-full">
-                                <img src={user?.photoURL} />
-                            </div>
-                        </label>
+                    <div>
+                        {
+                            user ? <div className="dropdown dropdown-end z-10">
+                                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-24 rounded-full">
+                                        <img src={user?.photoURL} />
+                                    </div>
+                                    <ul tabIndex={0} className="space-y-5 dropdown-content mt-36 py-5 shadow bg-base-100 rounded-box w-52">
+                                    <li><p>{user?.displayName}</p></li>
+                                        <li><Link to='/dashboard' className="bg-amber-500 px-11 py-2 rounded-lg text-center">Dashboard</Link></li>
+                                    </ul>
+                                </label>
+                            </div> : <button className="bg-amber-500 p-2 rounded-lg text-sm font-semibold hover:bg-amber-600">Sing in</button>
+                        }         
                     </div>
 
 
