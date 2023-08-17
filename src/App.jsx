@@ -9,6 +9,8 @@ import SignUp from "./form/Signup";
 import AuthContext from "./Authentication/AuthContext";
 import Payment from "./payment/Payment";
 import Dashboard from "./dashboard/Dashboard";
+import Signin from "./form/Signin";
+import PrivetRoute from "./privetRoute/PrivetRoute";
  
 const queryClient = new QueryClient()
 
@@ -33,11 +35,15 @@ const App = () => {
         },
         {
           path: '/cart',
-          element: <Cart/>
+          element: <PrivetRoute><Cart/></PrivetRoute>
         },
         {
           path: '/Signup',
           element: <SignUp/>
+        },
+        {
+          path: 'signin',
+          element : <Signin/>
         },
         {
           path: '/dashboard',

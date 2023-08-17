@@ -7,8 +7,12 @@ import { Context } from "../Authentication/AuthContext";
 const Navber = () => {
 
      const {subTotal,totalQunty} = useCart()
-    const { user } = useContext(Context)
+    const { user} = useContext(Context)
 
+
+    
+    
+     
 
     return (
         <nav className=" bg-slate-100">
@@ -97,12 +101,12 @@ const Navber = () => {
                                     <div className="w-24 rounded-full">
                                         <img src={user?.photoURL} />
                                     </div>
-                                    <ul tabIndex={0} className="space-y-5 dropdown-content mt-36 py-5 shadow bg-base-100 rounded-box w-52">
+                                    <ul tabIndex={0} className="space-y-5 dropdown-content mt-48 py-5 shadow bg-base-100 rounded-box w-52">
                                     <li><p>{user?.displayName}</p></li>
                                         <li><Link to='/dashboard' className="bg-amber-500 px-11 py-2 rounded-lg text-center">Dashboard</Link></li>
                                     </ul>
                                 </label>
-                            </div> : <button className="bg-amber-500 p-2 rounded-lg text-sm font-semibold hover:bg-amber-600">Sing in</button>
+                            </div> : <Link to='/signin' className="bg-amber-500 p-2 rounded-lg text-sm font-semibold hover:bg-amber-600">Sing in</Link>
                         }         
                     </div>
 
