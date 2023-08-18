@@ -3,128 +3,174 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import { Context } from "../Authentication/AuthContext";
+ 
 
 
 
 
 const SignUp = () => {
 
-    const {signup,profile} = useContext(Context)
-    
-    const { register, handleSubmit, formState: { errors }, } = useForm()
-    
-    const [error, setError] = useState('')
+    const {signup,profile} = useContext(Context)  
+    const { handleSubmit, register, formState: { errors } } = useForm()
     const navigate = useNavigate()
+    const [error, setError] = useState('')
+   
 
 
     const submit = (data) => {
-        const { name, email, password, image, confirm } = data
+        const { name, email, number, image, password, confirm } = data
+        const formData = new FormData()
+        formData.append('image', image[0])
+        
+
         if (password !== confirm) {
             setError('confirm password doesnt match')
         } else {
-            const userObj = { email, password, name }
-
-            signup(email, password)
+            const userObj = { email, password, name,number }
+            fetch(`https://api.imgbb.com/1/upload?key=980c5aa9b32d7a954c2c27ea3bb7f131`, {
+                method: 'POST',
+                body:formData
+            })
+                .then(res => res.json())
                 .then(res => {
-                    profile(res.user, name, image)
-                    setError('')
-                    fetch('http://localhost:5000/user', {
-                        method: "POST",
-                        headers: { 'content-type': 'application/json' },
-                        body: JSON.stringify(userObj)
-                    })
-                        .then(res => res.json())
-                        .then(res => {
-                            if (res.insertedId) {
-                                Swal.fire({
-                                    title: 'registation Successfull',
-                                    text: 'now you can access any kind of information',
-                                    icon: 'success',
-                                    confirmButtonText: 'Okay'
+                    if (res.data?.url) {
+                        signup(email, password)
+                            .then(res => {
+                                profile(res.user, name, image)
+                                setError('')
+                                fetch('http://localhost:5000/user', {
+                                    method: "POST",
+                                    headers: { 'content-type': 'application/json' },
+                                    body: JSON.stringify(userObj)
                                 })
-                                navigate('/')
-                            }
-                        })
+                                    .then(res => res.json())
+                                    .then(res => {
+                                        if (res.insertedId) {
+                                            Swal.fire({
+                                                title: 'registation Successfull',
+                                                text: 'now you can access any kind of information',
+                                                icon: 'success',
+                                                confirmButtonText: 'Okay'
+                                            })
+                                            navigate('/')
+                                        }
+                                    })
 
-                })
-                .catch(error => {
-                    if (error.message == "Firebase: Error (auth/email-already-in-use).") {
-                        setError('this email already have an account')
-                    }
-                })
-        }
+                            })
+                            .catch(error => {
+                                if (error.message == "Firebase: Error (auth/email-already-in-use).") {
+                                    setError('this email already have an account')
+                                }
+                            })
+                }
+            })        
 
-
+        }     
     }
 
 
-
-
-
-
     return (
-        <section className="py-11 mx-auto w-1/2">
-            <div className="text-center">
-                <h1 className="font-semibold text-4xl title">SignUp</h1>
-                <hr className="mt-4 border-purple-700" />
-            </div>
-            <form className=" mt-8" onSubmit={handleSubmit(submit)}>
+        <section className="my-10 mx-auto w-1/2">   
+        <form className="space-y-5" onSubmit={handleSubmit(submit)}>
+            <div className="grid grid-cols-2 gap-5">
+                    <div className="form-control w-full">
+                        <label className="label"><span className="label-text">Enter your full name*</span></label>
+                        <input
+                            className="border border-amber-600 rounded-2xl p-2" placeholder='name'
+                            {...register('name', { required: true })} />
+                        {errors.name && <p className="text-red-500">name is requird</p>}
+                    </div>
 
-                <div className="form-control w-full">
-                    <label className="label">
-                        <span className="label-text">What is your name?</span>
-                    </label>
-                    <input className="border border-pink-600 rounded-2xl p-2" placeholder="Name" {...register('name', { required: true })} />
-                    {errors.name && <p className="text-red-500">Last name is required.</p>}
-                </div>
+                    <div className="form-control w-full">
+                        <label className="label"><span className="label-text">Enter Email*</span></label>
+                        <input type="email"
+                            className="border border-amber-600 rounded-2xl p-2" placeholder='email'
+                            {...register('email', { required: true })} />
+                        {errors.email && <p className="text-red-500">email is requird</p>}
+                    </div>
+                
+                
+                 
+                    <div className="form-control w-full">
+                        <label className="label"><span className="label-text">Your Phone number*</span></label>
+                        <input
+                            className="border border-amber-600 rounded-2xl p-2" type="number" placeholder='number'
+                            {...register('number', { required: true,minLength:11,maxLength:11})} />
+                        {errors.number?.type === 'required' && <p className="text-red-500">number is requird</p>}
+                        {errors.number?.type === 'minLength' && <p className="text-red-500">input a valid mobail number</p>}
+                        {errors.number?.type === 'maxLength' && <p className="text-red-500">input a valid mobail number</p>}
+                    </div>
 
-                <div className="form-control w-full">
-                    <label className="label">
-                        <span className="label-text"> your Email</span>
-                    </label>
-                    <input className="border border-pink-600 rounded-2xl p-2" placeholder="email" {...register('email', { required: true })} />
-                    {errors.email && <p className="text-red-500">email ius requird</p>}
-                </div>
+                    <div className="form-control w-full">
+                        <label className="label"><span className="label-text">Enter Email*</span></label>
+                        <input type="file" className="file-input file-input-bordered file-input-warning w-full max-w-xs" {...register('image',{required:true})}
+                        />
+                        {errors.image && <p className="text-red-500">your image is requird</p>}
+                    </div>
+               
 
-                <div className="form-control w-full">
-                    <label className="label">
-                        <span className="label-text">Password</span>
-                    </label>
-                    <input type='password' className="border border-pink-600 rounded-2xl p-2" placeholder="password" {...register('password', {
-                        required: true,
-                        minLength: 6,
-                        pattern: /(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])/
-                    })} />
-                    {errors.password?.type === 'required' && <p className="text-red-500">password is requird</p>}
-                    {errors.password?.type === 'minLength' && <p className="text-red-500">password minmum 6 characters</p>}
-                    {errors.password?.type === 'pattern' && <p className="text-red-500">password must have a uppercase lowercase and numbers characters</p>}
-                </div>
+                
+                    <div className="form-control w-full">
+                        <label className="label"><span className="label-text">type new password*</span></label>
+                        <input
+                            className="border border-amber-600 rounded-2xl p-2" placeholder='password'
+                            {...register('password', {
+                                required: true,
+                                pattern: /(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])/,
+                                minLength:6
+                            })} />
+                        {errors.password?.type === 'required' && <p className="text-red-500">password is requird</p>}
+                        {errors.password?.type === 'minLength' && <p className="text-red-500">password minimum 6 characters</p>}
+                        {errors.password?.type === 'pattern' && <p className="text-red-500">password must have a uppercase and number</p>}
+                    </div>
 
-                <div className="form-control w-full">
-                    <label className="label">
-                        <span className="label-text">Confirm Password</span>
-                    </label>
-                    <input type='password' className="border border-pink-600 rounded-2xl p-2" placeholder="confirm-password" {...register('confirm', { required: true })} />
-                    {errors.confirm && <p className="text-red-500">confirm password is required</p>}
+                    <div className="form-control w-full">
+                        <label className="label"><span className="label-text">confirm password*</span></label>
+                        <input
+                            className="border border-amber-600 rounded-2xl p-2" placeholder='confirm password'
+                            {...register('confirm', { required: true })} />
+                        {errors.confirm && <p className="text-red-500">confirm password is requird</p>}
+                    </div>
                 </div>
-
-                <div className="form-control w-full">
-                    <label className="label">
-                        <span className="label-text">your photo</span>
-                    </label>
-                    <input className="border border-pink-600 rounded-2xl p-2" placeholder="photo URL" {...register('image', { required: true })} />
-                    {errors.confirm && <p className="text-red-500">photo is required</p>}
-                </div>
-                <p className='text-red-600 font-semibold mb-2'>{error}</p>
-                <input className="btn w-full mt-11 bg-gradient-to-r from-purple-700 to-pink-600 text-slate-50" type="submit" />
-            </form>
-            <p className="font-semibold mt-6 text-center">already have an account ? <Link to='/signin' className="text-purple-700 font-semibold">Sign In</Link></p>
-            <div className="divider">OR</div>
-            <div className="flex justify-center">
-                {/* <SigninProvider redirect='/' /> */}
-            </div>
+                
+                <p className="text-red-600 pt-4">{error}</p>
+                <input className="bg-amber-500 hover:bg-amber-600 p-2 w-full rounded-lg" type="submit" />
+               
+        </form>   
         </section>
     );
 };
 
 export default SignUp;
+
+
+
+    //  signup(email, password)
+    //             .then(res => {
+    //                 profile(res.user, name, image)
+    //                 setError('')
+    //                 fetch('http://localhost:5000/user', {
+    //                     method: "POST",
+    //                     headers: { 'content-type': 'application/json' },
+    //                     body: JSON.stringify(userObj)
+    //                 })
+    //                     .then(res => res.json())
+    //                     .then(res => {
+    //                         if (res.insertedId) {
+    //                             Swal.fire({
+    //                                 title: 'registation Successfull',
+    //                                 text: 'now you can access any kind of information',
+    //                                 icon: 'success',
+    //                                 confirmButtonText: 'Okay'
+    //                             })
+    //                             navigate('/')
+    //                         }
+    //                     })
+
+    //             })
+    //             .catch(error => {
+    //                 if (error.message == "Firebase: Error (auth/email-already-in-use).") {
+    //                     setError('this email already have an account')
+    //                 }
+    //             })
+    //     }

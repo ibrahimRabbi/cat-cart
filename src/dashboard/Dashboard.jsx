@@ -10,7 +10,10 @@ const Dashboard = () => {
     const [userData, setUserData] = useState({})
     const { orderData } = useOrderHistory()
     const navigate = useNavigate()
-
+    
+    
+    const remaining = orderData.filter(v => v.payment_status === true)
+    
     const signoutHandler = () => {
         signout()
         navigate('/')
@@ -20,6 +23,7 @@ const Dashboard = () => {
             .then(res => res.json())
         .then(res=>setUserData(res))
     }, [])
+    
     
     return (
         <section className='my-11 w-[90%] mx-auto'>
@@ -52,7 +56,7 @@ const Dashboard = () => {
                         </thead>
                         <tbody>
                             {
-                                orderData.map((v,index) => {
+                                remaining.map((v,index) => {
                                     return (
                                         <tr>
                                             <th>{index+1}</th>
