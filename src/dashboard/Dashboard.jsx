@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Context } from '../Authentication/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { FcSettings } from 'react-icons/fc'
@@ -6,11 +6,10 @@ import useOrderHistory from '../coustomHooks/useOrderHistory';
 
 
 const Dashboard = () => {
-    const { user,signout } = useContext(Context)
-    const [userData, setUserData] = useState({})
+    const {user,signout} = useContext(Context)
     const { orderData } = useOrderHistory()
     const navigate = useNavigate()
-    
+   
     
     const remaining = orderData.filter(v => v.payment_status === true)
     
@@ -18,11 +17,7 @@ const Dashboard = () => {
         signout()
         navigate('/')
     }
-    useEffect(() => {
-        fetch(`http://localhost:5000/user?email=${user?.email}`)
-            .then(res => res.json())
-        .then(res=>setUserData(res))
-    }, [])
+    
     
     
     return (
@@ -31,8 +26,8 @@ const Dashboard = () => {
                 <img className='w-36 rounded-lg' src={user?.photoURL} alt="" />
                 <div>
                     <h1 className='text-4xl'>{user?.displayName}</h1>
-                    <p className='font-semibold text-sm text-gray-500'>account ID : {userData?._id}</p>
-                    <p className='font-semibold text-sm mb-5 text-gray-500'>Email : {userData?.email}</p>
+                    <p className='font-semibold text-sm text-gray-500'>phone : {user?.number}</p>
+                    <p className='font-semibold text-sm mb-5 text-gray-500'>Email : {user?.email}</p>
                     <div className='flex gap-7'>
                         <Link className='bg-amber-400 gap-2 items-center w-24 font-semibold rounded-md p-2 flex'><FcSettings />setting</Link>
                         <button onClick={signoutHandler} className='bg-red-600 p-2 text-slate-50 rounded-lg text-sm'>Sign Out</button>
@@ -58,7 +53,7 @@ const Dashboard = () => {
                             {
                                 remaining.map((v,index) => {
                                     return (
-                                        <tr>
+                                        <tr key={v._id}>
                                             <th>{index+1}</th>
                                             <td>{v.tran_id}</td>
                                             <td>{v.pay}</td>

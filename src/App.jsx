@@ -11,7 +11,12 @@ import Payment from "./payment/Payment";
 import Dashboard from "./dashboard/Dashboard";
 import Signin from "./form/Signin";
 import PrivetRoute from "./privetRoute/PrivetRoute";
- 
+import AdminDashboard from "./admin/dashboard/AdminDashboard";
+import Allproduct from "./admin/Allproduct/Allproduct";
+import AddProduct from "./admin/AddProduct/AddProduct";
+import Manageuser from "./admin/user/Manageuser";
+import BusinessAnalyse from "./admin/BusinessAnalyse/BusinessAnalyse";
+
 const queryClient = new QueryClient()
 
 const App = () => {
@@ -55,6 +60,28 @@ const App = () => {
     {
       path: '/payment/success/:id',
       element:<Payment/>
+    },
+    {
+      path: '/admin',
+      element: <AdminDashboard/>,
+      children: [
+        {
+          path: 'dhome',
+          element:<BusinessAnalyse/>
+      },
+        {
+          path: 'allproduct',
+          element: <Allproduct/>
+        },
+        {
+          path: 'addproduct',
+          element: <AddProduct />
+        },
+        {
+          path: 'user',
+          element: <Manageuser />
+        }
+      ]
     }
    ])
  

@@ -53,7 +53,7 @@ const Category = () => {
                 </div>
             </Link>
 
-            <Link to="books">
+            <Link to="book">
                 <div className="bg-slate-100 py-2 px-6 rounded-md shadow-lg">
                     <div className="CH-text font-sans font-semibold">BOOKS</div>
                     <img
@@ -77,7 +77,7 @@ const Category = () => {
                 </div>
             </Link>
 
-            <Link to="personalCare">
+            <Link to="personalcare">
                 <div className="bg-slate-100 py-2 px-6 rounded-md shadow-lg">
                     <div className="CH-text font-sans font-semibold">
                         BEAUTY & PERSONAL CARE

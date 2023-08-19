@@ -1,16 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useCart from "../coustomHooks/useCart";
 import { Context } from "../Authentication/AuthContext";
+import useUserInfo from "../coustomHooks/useUserInfo";
+ 
 
 
 const Navber = () => {
 
      const {subTotal,totalQunty} = useCart()
-    const { user} = useContext(Context)
-
+     const { user,loading} = useContext(Context)
+     const userData = useUserInfo()
+    console.log(userData)
+    if (loading) {
+        return <h1>.</h1>
+    }
 
     
+     
+        
+           
+        
     
      
 
@@ -103,7 +113,7 @@ const Navber = () => {
                                     </div>
                                     <ul tabIndex={0} className="space-y-5 dropdown-content mt-48 py-5 shadow bg-base-100 rounded-box w-52">
                                     <li><p>{user?.displayName}</p></li>
-                                        <li><Link to='/dashboard' className="bg-amber-500 px-11 py-2 rounded-lg text-center">Dashboard</Link></li>
+                                        <li><Link to={userData?.role === 'admin' ? '/admin/dhome' : '/dashboard'} className="bg-amber-500 px-11 py-2 rounded-lg text-center">Dashboard</Link></li>
                                     </ul>
                                 </label>
                             </div> : <Link to='/signin' className="bg-amber-500 p-2 rounded-lg text-sm font-semibold hover:bg-amber-600">Sing in</Link>

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import { Context } from "../Authentication/AuthContext";
+import SigninProvider from "./SigninProvider";
  
 
 
@@ -34,9 +35,10 @@ const SignUp = () => {
                 .then(res => res.json())
                 .then(res => {
                     if (res.data?.url) {
+                        const img = res.data.url
                         signup(email, password)
                             .then(res => {
-                                profile(res.user, name, image)
+                                profile(res.user, name, img,number )
                                 setError('')
                                 fetch('http://localhost:5000/user', {
                                     method: "POST",
@@ -133,10 +135,16 @@ const SignUp = () => {
                     </div>
                 </div>
                 
-                <p className="text-red-600 pt-4">{error}</p>
+                <p className="text-red-600 pt-2">{error}</p>
                 <input className="bg-amber-500 hover:bg-amber-600 p-2 w-full rounded-lg" type="submit" />
                
-        </form>   
+            </form>   
+            
+            <p className="font-semibold text-sm text-center mt-7">Already Have an Account? <Link to='/signin' className="text-amber-500 font-bold">Sign In</Link> insted</p>
+            <div className="divider">OR</div>
+            <div>
+                <SigninProvider redirect='/'/>
+            </div>
         </section>
     );
 };

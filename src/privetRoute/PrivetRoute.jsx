@@ -4,16 +4,18 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivetRoute = ({ children }) => {
     
-    const { user } = useContext(Context)
+    const { user,loading } = useContext(Context)
     const location = useLocation()
+
+    if (loading) {
+        return <h1>loading.....</h1>
+    }
+    if (user) {
+        return children
+    }
     
-    return (
-        <div>
-            {
-                user ? children : <Navigate state={{redi:location.pathname}} to='/signin'/>
-            }
-        </div>
-    );
+    return <Navigate state={{redi:location.pathname}} to='/signin'/>
+            
 };
 
 export default PrivetRoute;

@@ -6,7 +6,7 @@ const Card = ({ obj }) => {
     const { _id, img, title, specification, price } = obj
 
     return (
-        <div className="card card-compact w-72 bg-slate-100 shadow-xl">
+        <div className="card card-compact w-72 bg-slate-100 shadow-xl duration-150 hover:drop-shadow-xl hover:scale-105">
             <Link to={_id}>
                 <img className="h-[240px] w-full" src={img} alt="T-shirt" />
             </Link>

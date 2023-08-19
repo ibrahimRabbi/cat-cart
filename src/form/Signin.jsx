@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Context } from '../Authentication/AuthContext';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import SigninProvider from './SigninProvider';
 
 const Signin = () => {
 
@@ -45,8 +46,8 @@ const Signin = () => {
     }
 
     return (
-        <div>
-            <form className="p-6 w-1/2 mx-auto" onSubmit={handleSubmit(loginHandler)}>
+        <div className="mt-10 w-1/2 mx-auto">
+            <form className='space-y-3'  onSubmit={handleSubmit(loginHandler)}>
 
                 <div className="form-control w-full">
                     <label className="label">
@@ -74,6 +75,11 @@ const Signin = () => {
                 <p className='text-red-600 font-semibold'>{error}</p>
                 <input value='sign In' type="submit" className='bg-amber-500 text-slate-800 btn w-full mt-16' />
             </form>
+            <p className="font-semibold text-sm text-center mt-7">dont Have an Account? <Link to='/signup' className="text-amber-500 font-bold">Sign Up</Link> insted</p>
+            <div className="divider">OR</div>
+            <div>
+                <SigninProvider redirect={redirectTo} />
+            </div>
         </div>
     );
 };
