@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 const Allproduct = () => {
     const [data, setData] = useState([])
     const [category,setCategory] = useState('all')
 
-console.log(category)
+ 
     const categoryHandler = (e) => {
         setCategory(e.target.value)
 
@@ -22,7 +23,37 @@ console.log(category)
         fetch(`http://localhost:5000/alldata`)
             .then(res => res.json())
            .then(res=>setData(res))
-    },[])
+    }, [])
+    
+    const deleteHandler = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "do you want to Delete this",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes,delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/alldata/${id}`, { method: 'DELETE' })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res)
+                        if (res.deletedCount > 0) {
+
+                            Swal.fire(
+                                'Deleted!',
+                                'product has been deleted.',
+                                'success'
+                            )
+}
+                    })
+                
+            }
+        })
+       
+    }
     
    
     
@@ -73,7 +104,7 @@ console.log(category)
                                         <td>{v.category}</td>
                                         <th>{v.price}</th>
                                         <td className='space-x-4'>
-                                    <button className='bg-red-600 p-2 text-white rounded-md'>delete</button>
+                                    <button onClick={()=>deleteHandler(v._id)} className='bg-red-600 p-2 text-white rounded-md'>delete</button>
                                             <button className='bg-yellow-500 p-2 text-white rounded-md'>edit</button>
                                         </td>
                                     </tr>

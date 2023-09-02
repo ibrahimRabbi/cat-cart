@@ -2,16 +2,16 @@ import React, { useContext } from 'react';
 import { Context } from '../Authentication/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { FcSettings } from 'react-icons/fc'
-import useOrderHistory from '../coustomHooks/useOrderHistory';
+ 
+import { useGetOrderHistoryQuery } from '../redux/features/baseApi';
 
 
 const Dashboard = () => {
-    const {user,signout} = useContext(Context)
-    const { orderData } = useOrderHistory()
+    const {user,signout} = useContext(Context) 
     const navigate = useNavigate()
+    const {data=[]} = useGetOrderHistoryQuery(user?.email)
    
-    
-    const remaining = orderData.filter(v => v.payment_status === true)
+   
     
     const signoutHandler = () => {
         signout()
@@ -51,7 +51,7 @@ const Dashboard = () => {
                         </thead>
                         <tbody>
                             {
-                                remaining.map((v,index) => {
+                                data.map((v,index) => {
                                     return (
                                         <tr key={v._id}>
                                             <th>{index+1}</th>

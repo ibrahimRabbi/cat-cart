@@ -32,10 +32,7 @@ const SingleData = () => {
         }
     };
 
-    // const onchangeHandler = (e) => {
-    //     setQunty(parseInt(e.target.value));
-    // };
-
+    
     const sizeHandler = (e) => {
         setSize(e.target.value)
     }
@@ -87,7 +84,7 @@ const SingleData = () => {
 
 
     return (
-        <section className="w-[80%] gap-16 mx-auto my-14 grid grid-cols-2">
+        <section className="w-[80%] lg:gap-16 gap-5 mx-auto my-14 grid lg:grid-cols-2">
             <div>
                 <ImageGallery
                     showFullscreenButton={false}
@@ -99,18 +96,18 @@ const SingleData = () => {
             </div>
 
             <div>
-                <p className="text font-semibold text-4xl">{data?.title}</p>
-                <p className="text-gray-400 font-semibold text-lg">
+                <p className="text font-semibold lg:text-4xl text-2xl">{data?.title}</p>
+                <p className="text-gray-400 font-semibold lg:text-lg text-sm">
                     {data?.specification}
                 </p>
-                <div className="flex mt-10 justify-between items-center pr-12">
+                <div className="flex lg:mt-10 mt-5 justify-between items-center pr-12">
                     <p className="text font-semibold text-2xl">
                         {data?.price}-TK
                     </p>
                     <p>Love</p>
                 </div>
 
-                <div className="text font-semibold mt-10 flex gap-12 items-center">
+                <div className="text font-semibold lg:mt-10 mt-6 flex gap-12 items-center">
                     <div>
                         <p className="text-md">Size:</p>
                         <select onChange={sizeHandler} value={size} className="size-selector border border-amber-500 p-2 rounded-md">
@@ -135,7 +132,7 @@ const SingleData = () => {
                 </div>
                 <div className="divider"></div>
 
-                <div className="flex gap-8 mt-12 items-center">
+                <div className="flex gap-8 lg:mt-12 mt-5 items-center">
                     <button onClick={addToBaghandler} className="p-2 rounded-lg text-white font-semibold bg-red-600 w-[45%]">Add To Cart</button>
                     <button className="p-2 rounded-lg font-semibold bg-amber-400 text-slate-900 w-[45%]">
                        Buy Now

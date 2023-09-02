@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import useCart from "../coustomHooks/useCart";
 import { Context } from "../Authentication/AuthContext";
-import useUserInfo from "../coustomHooks/useUserInfo";
+import { useGetUserInfoQuery } from "../redux/features/baseApi";
+ 
  
 
 
@@ -10,39 +11,33 @@ const Navber = () => {
 
      const {subTotal,totalQunty} = useCart()
      const { user,loading} = useContext(Context)
-     const userData = useUserInfo()
-    console.log(userData)
-    if (loading) {
-        return <h1>.</h1>
-    }
+      const {data:userData} = useGetUserInfoQuery(user?.email)
+    
+    // if (loading) {
+    //     return <h1>Loading...</h1>
+    // }
 
-    
-     
-        
-           
-        
-    
      
 
     return (
         <nav className=" bg-slate-100">
-            <div className="w-[90%] mx-auto flex justify-between items-center">
+            <div className="w-[90%] lg:py-0 py-1 mx-auto flex justify-between items-center">
                 {/* navbar start */}
                 <div className="">
                     <Link to="/">
-                        <img className="w-[110px] lg:w-[140px]" src="https://i.ibb.co/6tshLqX/IMG-20230813-000938.png"/>
+                        <img className="lg:w-[140px] w-[120px]" src="https://i.ibb.co/6tshLqX/IMG-20230813-000938.png"/>
                     </Link>
                 </div>
 
                 {/* navbar middle */}
 
                 <div className="lg:w-[600px] px-5">
-                    <div className="form-control w-full">
+                    <div className="form-control hidden lg:block w-full">
                         <div className="input-group">
                             <input
                                 type="text"
                                 placeholder="Search…"
-                                className="input w-full input-bordered" />
+                                className="input  w-full input-bordered" />
                             <button className="btn bg-amber-500 btn-square">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"

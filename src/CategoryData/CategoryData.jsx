@@ -10,7 +10,7 @@ const CategoryData = () => {
     
     
     return (
-        <section className='grid grid-cols-4 my-10 w-[90%] mx-auto'>
+        <section className='grid gap-10 grid-cols-1 lg:grid-cols-4 my-10 w-[90%] mx-auto'>
             {
                 data.map(v => <Card key={v._id} obj={v} />)
             }

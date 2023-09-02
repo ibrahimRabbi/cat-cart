@@ -11,7 +11,7 @@ const Cart = () => {
     const { cartData } = useCart()
    
     return (
-        <section className="cart relative my-10 w-[90%] mx-auto grid gap-10 ">
+        <section className="cart relative my-10 w-[90%] mx-auto lg:grid gap-10 ">
             <div className="space-y-3">
                 { cartData.map((v) => <Card key={v._id} data={v}/>)}
             </div>

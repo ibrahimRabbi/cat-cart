@@ -16,6 +16,8 @@ import Allproduct from "./admin/Allproduct/Allproduct";
 import AddProduct from "./admin/AddProduct/AddProduct";
 import Manageuser from "./admin/user/Manageuser";
 import BusinessAnalyse from "./admin/BusinessAnalyse/BusinessAnalyse";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const queryClient = new QueryClient()
 
@@ -36,7 +38,7 @@ const App = () => {
         },
         {
           path: '/:category/:id',
-          element:<SingleData/>
+          element: <PrivetRoute><SingleData/></PrivetRoute>
         },
         {
           path: '/cart',
@@ -90,7 +92,9 @@ const App = () => {
    return (
      <QueryClientProvider client={queryClient}>
        <AuthContext>
-         <RouterProvider router={router} />
+         <Provider store={store}>
+           <RouterProvider router={router} />
+        </Provider>
        </AuthContext>
     </QueryClientProvider>
   )

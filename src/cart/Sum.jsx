@@ -34,7 +34,7 @@ const Sum = () => {
         })
     }
     return (
-        <div className="">
+        <div className="lg:mt-0 mt-10">
              
                 <div className=" h-[320px] bg-gradient-to-t bg-slate-200 from-slate-100 p-4 rounded-lg     sticky top-10 shadow-lg">
                     <h1 className="font-semibold rounded-lg mt-2">Quantitiy : {totalQunty}</h1>
