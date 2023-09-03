@@ -1,13 +1,13 @@
 import { Context } from '../Authentication/AuthContext';
 import { useContext } from 'react'
 import { useGetPostsQuery } from '../redux/features/baseApi';
- 
 
 
-const useCart = () => { 
-    const { user } = useContext(Context)  
-    const {data:cartData=[],refetch} = useGetPostsQuery(user?.email)
-     
+
+const useCart = () => {
+    const { user } = useContext(Context)
+    const { data: cartData = [], refetch } = useGetPostsQuery(user?.email)
+
     let totalAmount = 0
     let totalQunty = 0
     let totalDiscount = 20;
@@ -21,7 +21,7 @@ const useCart = () => {
 
     let subTotal = totalAmount + totalVat - totalDiscount;
 
-    return {cartData, refetch,totalAmount,totalQunty,totalDiscount,totalVat,subTotal}
+    return { cartData, refetch, totalAmount, totalQunty, totalDiscount, totalVat, subTotal }
 };
 
 export default useCart;
@@ -35,7 +35,7 @@ export default useCart;
 // const { data: cartData = [], refetch } = useQuery({
     //     queryKey: ['orderData'],
     //     queryFn: async () => {
-    //         const fetching = await fetch('http://localhost:5000/cart')
+    //         const fetching = await fetch('https://cat-cart-server.vercel.app/cart')
     //         const converting = await fetching.json()
     //         return converting
     //     }
@@ -45,4 +45,3 @@ export default useCart;
 
 
 
-  

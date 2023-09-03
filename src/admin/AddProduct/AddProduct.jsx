@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 const AddProduct = () => {
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
-    const productType = ['toy', 'cloth', 'watch', 'shoes', 'pant', 'tshirt', 'moistrue', 'makeup', 'soap', 'bodywash', 'shampoo', 'mobail','baby-care']
+    const productType = ['toy', 'cloth', 'watch', 'shoes', 'pant', 'tshirt', 'moistrue', 'makeup', 'soap', 'bodywash', 'shampoo', 'mobail', 'baby-care']
     const category = ['mens', 'woman', 'shoes', 'baby', 'book', , 'electronics', 'personalcare', 'household']
     const [loading, setLoading] = useState(false)
 
@@ -13,7 +13,7 @@ const AddProduct = () => {
     const submitHandler = (data) => {
         console.log(data)
         setLoading(true)
-        const { price, category, productType, description, title, image,img1,img2,img3,img4 } = data
+        const { price, category, productType, description, title, image, img1, img2, img3, img4 } = data
 
         const formData = new FormData()
         formData.append('image', image[0])
@@ -29,9 +29,9 @@ const AddProduct = () => {
                         img, title, price, category,
                         product: productType,
                         specification: description,
-                        moreImg: [img,img1,img2,img3,img4]
+                        moreImg: [img, img1, img2, img3, img4]
                     }
-                    fetch('http://localhost:5000/alldata', {
+                    fetch('https://cat-cart-server.vercel.app/alldata', {
                         method: 'POST',
                         headers: { 'content-type': 'application/json' },
                         body: JSON.stringify(obj)

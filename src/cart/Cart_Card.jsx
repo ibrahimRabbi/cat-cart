@@ -6,10 +6,10 @@ import useCart from "../coustomHooks/useCart";
 
 const Card = ({ data }) => {
     const { img, size, qunty, title, price, _id: id } = data;
-     const {refetch} = useCart()
+    const { refetch } = useCart()
 
     const deleteHandler = () => {
-        fetch(`http://localhost:5000/cart/${id}`, { method: 'DELETE' })
+        fetch(`https://cat-cart-server.vercel.app/cart/${id}`, { method: 'DELETE' })
             .then((res) => res.json())
             .then(() => {
                 refetch()
@@ -19,10 +19,10 @@ const Card = ({ data }) => {
 
     return (
         <section>
-             <div className="flex items-start gap-6 border p-4 rounded-lg shadow-md bg-slate-100">
+            <div className="flex items-start gap-6 border p-4 rounded-lg shadow-md bg-slate-100">
                 <div className="avatar">
                     <div className="w-32 rounded-xl">
-                        <img src={img} alt=""/>
+                        <img src={img} alt="" />
                     </div>
                 </div>
 
@@ -38,8 +38,8 @@ const Card = ({ data }) => {
                             <FaTrashAlt className="text-red-600 text-xl mt-2" />
                         </button>
                     </div>
-                </div> 
-            </div>  
+                </div>
+            </div>
         </section>
     );
 };

@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
@@ -11,27 +11,27 @@ import { HashLoader } from 'react-spinners';
 
 const SignUp = () => {
 
-    const {signup,profile} = useContext(Context)  
+    const { signup, profile } = useContext(Context)
     const { handleSubmit, register, formState: { errors } } = useForm()
     const navigate = useNavigate()
     const [error, setError] = useState('')
-   const [loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
 
     const submit = (data) => {
         const { name, email, number, image, password, confirm } = data
         const formData = new FormData()
         formData.append('image', image[0])
-        
+
 
         if (password !== confirm) {
             setError('confirm password doesnt match')
         } else {
             setLoading(true)
-            const userObj = { email, password, name,number }
+            const userObj = { email, password, name, number }
             fetch(`https://api.imgbb.com/1/upload?key=980c5aa9b32d7a954c2c27ea3bb7f131`, {
                 method: 'POST',
-                body:formData
+                body: formData
             })
                 .then(res => res.json())
                 .then(res => {
@@ -39,9 +39,9 @@ const SignUp = () => {
                         const img = res.data.url
                         signup(email, password)
                             .then(res => {
-                                profile(res.user, name, img,number )
+                                profile(res.user, name, img, number)
                                 setError('')
-                                fetch('http://localhost:5000/user', {
+                                fetch('https://cat-cart-server.vercel.app/user', {
                                     method: "POST",
                                     headers: { 'content-type': 'application/json' },
                                     body: JSON.stringify(userObj)
@@ -67,23 +67,23 @@ const SignUp = () => {
                                     setError('this email already have an account')
                                 }
                             })
-                }
-            })        
+                    }
+                })
 
-        }     
+        }
     }
 
     if (loading) {
-       return <div className='h-[100vh] flex justify-center'>
+        return <div className='h-[100vh] flex justify-center'>
             <HashLoader className='mt-36' speedMultiplier={2} size={80} color="#36d7b7" />
         </div>
     }
 
 
     return (
-        <section className="my-10 mx-auto w-1/2">   
-        <form className="space-y-5" onSubmit={handleSubmit(submit)}>
-            <div className="grid grid-cols-2 gap-5">
+        <section className="my-10 mx-auto w-1/2">
+            <form className="space-y-5" onSubmit={handleSubmit(submit)}>
+                <div className="grid grid-cols-2 gap-5">
                     <div className="form-control w-full">
                         <label className="label"><span className="label-text">Enter your full name*</span></label>
                         <input
@@ -99,14 +99,14 @@ const SignUp = () => {
                             {...register('email', { required: true })} />
                         {errors.email && <p className="text-red-500">email is requird</p>}
                     </div>
-                
-                
-                 
+
+
+
                     <div className="form-control w-full">
                         <label className="label"><span className="label-text">Your Phone number*</span></label>
                         <input
                             className="border border-amber-600 rounded-2xl p-2" type="number" placeholder='number'
-                            {...register('number', { required: true,minLength:11,maxLength:11})} />
+                            {...register('number', { required: true, minLength: 11, maxLength: 11 })} />
                         {errors.number?.type === 'required' && <p className="text-red-500">number is requird</p>}
                         {errors.number?.type === 'minLength' && <p className="text-red-500">input a valid mobail number</p>}
                         {errors.number?.type === 'maxLength' && <p className="text-red-500">input a valid mobail number</p>}
@@ -114,13 +114,13 @@ const SignUp = () => {
 
                     <div className="form-control w-full">
                         <label className="label"><span className="label-text">Enter Email*</span></label>
-                        <input type="file" className="file-input file-input-bordered file-input-warning w-full max-w-xs" {...register('image',{required:true})}
+                        <input type="file" className="file-input file-input-bordered file-input-warning w-full max-w-xs" {...register('image', { required: true })}
                         />
                         {errors.image && <p className="text-red-500">your image is requird</p>}
                     </div>
-               
 
-                
+
+
                     <div className="form-control w-full">
                         <label className="label"><span className="label-text">type new password*</span></label>
                         <input
@@ -128,7 +128,7 @@ const SignUp = () => {
                             {...register('password', {
                                 required: true,
                                 pattern: /(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])/,
-                                minLength:6
+                                minLength: 6
                             })} />
                         {errors.password?.type === 'required' && <p className="text-red-500">password is requird</p>}
                         {errors.password?.type === 'minLength' && <p className="text-red-500">password minimum 6 characters</p>}
@@ -143,16 +143,16 @@ const SignUp = () => {
                         {errors.confirm && <p className="text-red-500">confirm password is requird</p>}
                     </div>
                 </div>
-                
+
                 <p className="text-red-600 pt-2">{error}</p>
                 <input className="bg-amber-500 hover:bg-amber-600 p-2 w-full rounded-lg" type="submit" />
-               
-            </form>   
-            
+
+            </form>
+
             <p className="font-semibold text-sm text-center mt-7">Already Have an Account? <Link to='/signin' className="text-amber-500 font-bold">Sign In</Link> insted</p>
             <div className="divider">OR</div>
             <div>
-                <SigninProvider redirect='/'/>
+                <SigninProvider redirect='/' />
             </div>
         </section>
     );
@@ -166,7 +166,7 @@ export default SignUp;
     //             .then(res => {
     //                 profile(res.user, name, image)
     //                 setError('')
-    //                 fetch('http://localhost:5000/user', {
+    //                 fetch('https://cat-cart-server.vercel.app/user', {
     //                     method: "POST",
     //                     headers: { 'content-type': 'application/json' },
     //                     body: JSON.stringify(userObj)

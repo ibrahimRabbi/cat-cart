@@ -13,10 +13,10 @@ const SingleData = () => {
     const [size, setSize] = useState('')
     const navigate = useNavigate()
     const { refetch } = useCart()
-    const {user} = useContext(Context)
+    const { user } = useContext(Context)
     const images = [];
 
-     
+
     data.moreImg?.forEach(v => {
         images.push({ original: v, thumbnail: v })
     })
@@ -32,7 +32,7 @@ const SingleData = () => {
         }
     };
 
-    
+
     const sizeHandler = (e) => {
         setSize(e.target.value)
     }
@@ -42,12 +42,12 @@ const SingleData = () => {
             img: data.img,
             title: data.title,
             price: data.price,
-            qunty,size,
+            qunty, size,
             productId: data._id,
-            email:user?.email
+            email: user?.email
         }
 
-        fetch("http://localhost:5000/cart", {
+        fetch("https://cat-cart-server.vercel.app/cart", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(cartData)
@@ -77,7 +77,7 @@ const SingleData = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/id/${category}/${id}`)
+        fetch(`https://cat-cart-server.vercel.app/id/${category}/${id}`)
             .then(res => res.json())
             .then(res => setData(res))
     }, [])
@@ -135,7 +135,7 @@ const SingleData = () => {
                 <div className="flex gap-8 lg:mt-12 mt-5 items-center">
                     <button onClick={addToBaghandler} className="p-2 rounded-lg text-white font-semibold bg-red-600 w-[45%]">Add To Cart</button>
                     <button className="p-2 rounded-lg font-semibold bg-amber-400 text-slate-900 w-[45%]">
-                       Buy Now
+                        Buy Now
                     </button>
                 </div>
             </div>

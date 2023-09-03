@@ -4,7 +4,7 @@ import Home from "./Home/Home";
 import CategoryData from "./CategoryData/CategoryData";
 import SingleData from "./SingelData/SingleData";
 import Cart from "./cart/Cart";
-import {QueryClient,QueryClientProvider} from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import SignUp from "./form/Signup";
 import AuthContext from "./Authentication/AuthContext";
 import Payment from "./payment/Payment";
@@ -25,55 +25,55 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Layout/>,
+      element: <Layout />,
       children: [
         {
           path: '/',
-          element: <Home/>
+          element: <Home />
         },
         {
           path: '/:category',
-          element: <CategoryData/> ,
-          loader: ({ params }) => fetch(`http://localhost:5000/category/${params.category}`)
+          element: <CategoryData />,
+          loader: ({ params }) => fetch(`https://cat-cart-server.vercel.app/category/${params.category}`)
         },
         {
           path: '/:category/:id',
-          element: <PrivetRoute><SingleData/></PrivetRoute>
+          element: <PrivetRoute><SingleData /></PrivetRoute>
         },
         {
           path: '/cart',
-          element: <PrivetRoute><Cart/></PrivetRoute>
+          element: <PrivetRoute><Cart /></PrivetRoute>
         },
         {
           path: '/Signup',
-          element: <SignUp/>
+          element: <SignUp />
         },
         {
           path: 'signin',
-          element : <Signin/>
+          element: <Signin />
         },
         {
           path: '/dashboard',
-          element : <Dashboard/>
+          element: <Dashboard />
         }
 
       ]
     },
     {
       path: '/payment/success/:id',
-      element:<Payment/>
+      element: <Payment />
     },
     {
       path: '/admin',
-      element: <AdminDashboard/>,
+      element: <AdminDashboard />,
       children: [
         {
           path: 'dhome',
-          element:<BusinessAnalyse/>
-      },
+          element: <BusinessAnalyse />
+        },
         {
           path: 'allproduct',
-          element: <Allproduct/>
+          element: <Allproduct />
         },
         {
           path: 'addproduct',
@@ -85,19 +85,19 @@ const App = () => {
         }
       ]
     }
-   ])
- 
-  
-  
-   return (
-     <QueryClientProvider client={queryClient}>
-       <AuthContext>
-         <Provider store={store}>
-           <RouterProvider router={router} />
+  ])
+
+
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthContext>
+        <Provider store={store}>
+          <RouterProvider router={router} />
         </Provider>
-       </AuthContext>
+      </AuthContext>
     </QueryClientProvider>
   )
- };
- 
- export default App;
+};
+
+export default App;
