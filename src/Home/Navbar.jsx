@@ -18,7 +18,7 @@ const Navber = () => {
      
 
     return (
-        <nav className=" bg-slate-100">
+        <nav className=" bg-slate-100 ">
             <div className="w-[90%] lg:py-0 py-1 mx-auto flex justify-between items-center">
                 {/* navbar start */}
                 <div className="">

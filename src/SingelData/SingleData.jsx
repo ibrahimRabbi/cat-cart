@@ -111,7 +111,7 @@ const SingleData = () => {
                     <div>
                         <p className="text-md">Size:</p>
                         <select onChange={sizeHandler} value={size} className="size-selector border border-amber-500 p-2 rounded-md">
-                            <option defaultValue=''>choose a option...</option>
+                            <option defaultValue='M' selected disabled>choose a option...</option>
                             <option>M</option>
                             <option>S</option>
                             <option>L</option>

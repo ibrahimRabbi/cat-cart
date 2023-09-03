@@ -4,28 +4,31 @@ import { Context } from '../Authentication/AuthContext';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import SigninProvider from './SigninProvider';
+import { HashLoader } from 'react-spinners';
 
 const Signin = () => {
 
-    const { register, handleSubmit, formState: { errors }, } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const { signin } = useContext(Context)
     const location = useLocation()
     const redirectTo = location.state?.redi || '/'
     const navigate = useNavigate()
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
 
- 
 
 
     const loginHandler = (data) => {
+      
         const { email, password, confirm } = data
-
-        if (password !== confirm) {
+        if (password !== confirm) {      
             setError('confirm Password doesnt Match')
         } else {
+            setError('')
+            setLoading(true)
             signin(email, password)
                 .then(() => {
-                    setError('')
+                   setLoading(false)
                     Swal.fire({
                         title: 'Log In Successfull',
                         text: 'keep Rock',
@@ -35,6 +38,7 @@ const Signin = () => {
                     navigate(redirectTo)
                 })
                 .catch(error => {
+                    setLoading(false)
                     if (error.message == "Firebase: Error (auth/user-not-found).") {
                         setError('user is not exist in this application plz provied a valid password and email')
                     } else if (error.message == 'Firebase: Error (auth/wrong-password).') {
@@ -45,9 +49,15 @@ const Signin = () => {
 
     }
 
+    if (loading) {
+        return <div className='h-[100vh] flex justify-center'>
+            <HashLoader className='mt-36' speedMultiplier={2} size={80} color="#36d7b7" />
+        </div>
+    }
+
     return (
         <div className="mt-10 w-1/2 mx-auto">
-            <form className='space-y-3'  onSubmit={handleSubmit(loginHandler)}>
+            <form className='space-y-3' onSubmit={handleSubmit(loginHandler)}>
 
                 <div className="form-control w-full">
                     <label className="label">

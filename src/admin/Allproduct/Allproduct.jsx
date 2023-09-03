@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from 'react';
+import { HashLoader } from 'react-spinners';
 import Swal from 'sweetalert2';
  
 
 const Allproduct = () => {
     const [data, setData] = useState()
     const [category, setCategory] = useState('all')
+    const [loading,setLoading] = useState(false)
     
-    
-
+ 
 
     
 
     const categoryHandler = (e) => {
+        setLoading(true)
         setCategory(e.target.value)
 
         if (e.target.value === 'all') {
             fetch(`http://localhost:5000/alldata`)
                 .then(res => res.json())
                 .then(res => {
-                     setData(res)
+                    setData(res)
+                    setLoading(false)
                 })
         }
         fetch(`http://localhost:5000/category/${e.target.value}`)
             .then(res => res.json())
-            .then(res => setData(res))
+            .then(res => {
+                setData(res)
+                setLoading(false)
+            })
     }
 
     useEffect(() => {
@@ -63,8 +69,8 @@ const Allproduct = () => {
     }
 
 
-    if (!data) {
-    return <h1 className='text-6xl'>loading...</h1>
+    if (!data || loading) {
+        return <HashLoader speedMultiplier={2} size={80} color="#36d7b7" />
 }
     return (
         <div className='w-full ml-11 mt-10'>

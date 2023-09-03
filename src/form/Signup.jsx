@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import { Context } from "../Authentication/AuthContext";
 import SigninProvider from "./SigninProvider";
- 
+import { HashLoader } from 'react-spinners';
 
 
 
@@ -15,7 +15,7 @@ const SignUp = () => {
     const { handleSubmit, register, formState: { errors } } = useForm()
     const navigate = useNavigate()
     const [error, setError] = useState('')
-   
+   const [loading,setLoading] = useState(false)
 
 
     const submit = (data) => {
@@ -27,6 +27,7 @@ const SignUp = () => {
         if (password !== confirm) {
             setError('confirm password doesnt match')
         } else {
+            setLoading(true)
             const userObj = { email, password, name,number }
             fetch(`https://api.imgbb.com/1/upload?key=980c5aa9b32d7a954c2c27ea3bb7f131`, {
                 method: 'POST',
@@ -48,6 +49,7 @@ const SignUp = () => {
                                     .then(res => res.json())
                                     .then(res => {
                                         if (res.insertedId) {
+                                            setLoading(false)
                                             Swal.fire({
                                                 title: 'registation Successfull',
                                                 text: 'now you can access any kind of information',
@@ -60,6 +62,7 @@ const SignUp = () => {
 
                             })
                             .catch(error => {
+                                setLoading(false)
                                 if (error.message == "Firebase: Error (auth/email-already-in-use).") {
                                     setError('this email already have an account')
                                 }
@@ -68,6 +71,12 @@ const SignUp = () => {
             })        
 
         }     
+    }
+
+    if (loading) {
+       return <div className='h-[100vh] flex justify-center'>
+            <HashLoader className='mt-36' speedMultiplier={2} size={80} color="#36d7b7" />
+        </div>
     }
 
 
