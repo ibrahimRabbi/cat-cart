@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+ 
 
 const Allproduct = () => {
-    const [data, setData] = useState([])
-    const [category,setCategory] = useState('all')
+    const [data, setData] = useState()
+    const [category, setCategory] = useState('all')
+    
+    
 
- 
+
+    
+
     const categoryHandler = (e) => {
         setCategory(e.target.value)
 
         if (e.target.value === 'all') {
             fetch(`http://localhost:5000/alldata`)
                 .then(res => res.json())
-                .then(res => setData(res))
+                .then(res => {
+                     setData(res)
+                })
         }
         fetch(`http://localhost:5000/category/${e.target.value}`)
             .then(res => res.json())
@@ -22,9 +29,9 @@ const Allproduct = () => {
     useEffect(() => {
         fetch(`http://localhost:5000/alldata`)
             .then(res => res.json())
-           .then(res=>setData(res))
+            .then(res => setData(res))
     }, [])
-    
+
     const deleteHandler = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -41,22 +48,24 @@ const Allproduct = () => {
                     .then(res => {
                         console.log(res)
                         if (res.deletedCount > 0) {
-
+                            setData(data.filter(v => v._id !== id))
                             Swal.fire(
                                 'Deleted!',
                                 'product has been deleted.',
                                 'success'
                             )
-}
+                        }
                     })
-                
+
             }
         })
-       
+
     }
-    
-   
-    
+
+
+    if (!data) {
+    return <h1 className='text-6xl'>loading...</h1>
+}
     return (
         <div className='w-full ml-11 mt-10'>
             <div className='flex justify-between mb-4'>
@@ -104,7 +113,7 @@ const Allproduct = () => {
                                         <td>{v.category}</td>
                                         <th>{v.price}</th>
                                         <td className='space-x-4'>
-                                    <button onClick={()=>deleteHandler(v._id)} className='bg-red-600 p-2 text-white rounded-md'>delete</button>
+                                            <button onClick={() => deleteHandler(v._id)} className='bg-red-600 p-2 text-white rounded-md'>delete</button>
                                             <button className='bg-yellow-500 p-2 text-white rounded-md'>edit</button>
                                         </td>
                                     </tr>

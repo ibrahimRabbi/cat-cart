@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
- 
 
 export const getCartData = createApi({
     reducerPath: 'getCartData',
@@ -15,6 +14,7 @@ export const getCartData = createApi({
         getUserInfo: build.query({
             query: (email) => `/user?email=${email}`
         }),
+         
     })
 })
 
