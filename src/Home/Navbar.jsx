@@ -1,21 +1,33 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import useCart from "../coustomHooks/useCart";
 import { Context } from "../Authentication/AuthContext";
-import { useGetUserInfoQuery } from "../redux/features/baseApi";
- 
- 
+import { useGetSearchQuery, useGetUserInfoQuery } from "../redux/features/baseApi";
+
+
 
 
 const Navber = () => {
 
-     const {subTotal,totalQunty} = useCart()
-     const { user } = useContext(Context)
-      const {data:userData} = useGetUserInfoQuery(user?.email)
-    
-     
+    const { subTotal, totalQunty } = useCart()
+    const { user } = useContext(Context)
+    const ref = useRef(null)
+    const { data: userData } = useGetUserInfoQuery(user?.email)
+    const navigate = useNavigate()
 
-     
+
+    const searchHandler = () => {
+        fetch(`https://cat-cart-server.vercel.app/alldata?search=${ref.current.value}`)
+            .then(res => res.json())
+            .then(res => {
+                ref.current.value = '';
+                navigate('/search', { state: { data: res, search: ref.current.value } })
+            })
+
+    }
+
+
+
 
     return (
         <nav className=" bg-slate-100 ">
@@ -23,7 +35,7 @@ const Navber = () => {
                 {/* navbar start */}
                 <div className="">
                     <Link to="/">
-                        <img className="lg:w-[140px] w-[120px]" src="https://i.ibb.co/6tshLqX/IMG-20230813-000938.png"/>
+                        <img className="lg:w-[140px] w-[120px]" src="https://i.ibb.co/6tshLqX/IMG-20230813-000938.png" />
                     </Link>
                 </div>
 
@@ -34,9 +46,10 @@ const Navber = () => {
                         <div className="input-group">
                             <input
                                 type="text"
-                                placeholder="Search…"
+                                ref={ref}
+                                placeholder="Search product...."
                                 className="input  w-full input-bordered" />
-                            <button className="btn bg-amber-500 btn-square">
+                            <button onClick={searchHandler} className="btn bg-amber-500 btn-square">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6"
@@ -62,7 +75,7 @@ const Navber = () => {
 
 
                     <div className="dropdown dropdown-end">
-                        <label  tabIndex={0} className=" mt-2 btn btn-ghost btn-circle">
+                        <label tabIndex={0} className=" mt-2 btn btn-ghost btn-circle">
                             <div className="indicator">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -105,12 +118,12 @@ const Navber = () => {
                                         <img src={user?.photoURL} />
                                     </div>
                                     <ul tabIndex={0} className="space-y-5 dropdown-content mt-48 py-5 shadow bg-base-100 rounded-box w-52">
-                                    <li><p>{user?.displayName}</p></li>
+                                        <li><p>{user?.displayName}</p></li>
                                         <li><Link to={userData?.role === 'admin' ? '/admin/allproduct' : '/dashboard'} className="bg-amber-500 px-11 py-2 rounded-lg text-center">Dashboard</Link></li>
                                     </ul>
                                 </label>
                             </div> : <Link to='/signin' className="bg-amber-500 p-2 rounded-lg text-sm font-semibold hover:bg-amber-600">Sing in</Link>
-                        }         
+                        }
                     </div>
 
 

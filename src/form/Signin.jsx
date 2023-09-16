@@ -4,7 +4,7 @@ import { Context } from '../Authentication/AuthContext';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import SigninProvider from './SigninProvider';
-import { HashLoader } from 'react-spinners';
+import Loader from '../Loader/Loader';
 
 const Signin = () => {
 
@@ -50,9 +50,7 @@ const Signin = () => {
     }
 
     if (loading) {
-        return <div className='h-[100vh] flex justify-center'>
-            <HashLoader className='mt-36' speedMultiplier={2} size={80} color="#36d7b7" />
-        </div>
+        return  <Loader/>
     }
 
     return (

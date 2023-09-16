@@ -18,6 +18,7 @@ import Manageuser from "./admin/user/Manageuser";
 import BusinessAnalyse from "./admin/BusinessAnalyse/BusinessAnalyse";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import Search from "./search/Search";
 
 const queryClient = new QueryClient()
 
@@ -30,6 +31,14 @@ const App = () => {
         {
           path: '/',
           element: <Home />
+        },
+        {
+          path: '/search',
+          element: <Search />
+        },
+        {
+          path: '/search/:id',
+          element: <SingleData />
         },
         {
           path: '/:category',

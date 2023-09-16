@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import { Context } from "../Authentication/AuthContext";
 import SigninProvider from "./SigninProvider";
-import { HashLoader } from 'react-spinners';
+import Loader from "../Loader/Loader";
 
 
 
@@ -74,9 +74,7 @@ const SignUp = () => {
     }
 
     if (loading) {
-        return <div className='h-[100vh] flex justify-center'>
-            <HashLoader className='mt-36' speedMultiplier={2} size={80} color="#36d7b7" />
-        </div>
+        return <Loader />
     }
 
 
@@ -162,32 +160,32 @@ export default SignUp;
 
 
 
-    //  signup(email, password)
-    //             .then(res => {
-    //                 profile(res.user, name, image)
-    //                 setError('')
-    //                 fetch('https://cat-cart-server.vercel.app/user', {
-    //                     method: "POST",
-    //                     headers: { 'content-type': 'application/json' },
-    //                     body: JSON.stringify(userObj)
-    //                 })
-    //                     .then(res => res.json())
-    //                     .then(res => {
-    //                         if (res.insertedId) {
-    //                             Swal.fire({
-    //                                 title: 'registation Successfull',
-    //                                 text: 'now you can access any kind of information',
-    //                                 icon: 'success',
-    //                                 confirmButtonText: 'Okay'
-    //                             })
-    //                             navigate('/')
-    //                         }
-    //                     })
+//  signup(email, password)
+//             .then(res => {
+//                 profile(res.user, name, image)
+//                 setError('')
+//                 fetch('https://cat-cart-server.vercel.app/user', {
+//                     method: "POST",
+//                     headers: { 'content-type': 'application/json' },
+//                     body: JSON.stringify(userObj)
+//                 })
+//                     .then(res => res.json())
+//                     .then(res => {
+//                         if (res.insertedId) {
+//                             Swal.fire({
+//                                 title: 'registation Successfull',
+//                                 text: 'now you can access any kind of information',
+//                                 icon: 'success',
+//                                 confirmButtonText: 'Okay'
+//                             })
+//                             navigate('/')
+//                         }
+//                     })
 
-    //             })
-    //             .catch(error => {
-    //                 if (error.message == "Firebase: Error (auth/email-already-in-use).") {
-    //                     setError('this email already have an account')
-    //                 }
-    //             })
-    //     }
+//             })
+//             .catch(error => {
+//                 if (error.message == "Firebase: Error (auth/email-already-in-use).") {
+//                     setError('this email already have an account')
+//                 }
+//             })
+//     }

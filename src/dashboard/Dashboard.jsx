@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { Context } from '../Authentication/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { FcSettings } from 'react-icons/fc'
-import { HashLoader } from 'react-spinners';
 import { useGetOrderHistoryQuery } from '../redux/features/baseApi';
+import Loader from '../Loader/Loader';
 
 
 const Dashboard = () => {
@@ -19,9 +19,7 @@ const Dashboard = () => {
     }
 
     if (isLoading) {
-        return <div className='flex justify-center h-[90vh]'>
-            <HashLoader className='mt-36' speedMultiplier={2} size={80} color="#36d7b7" />
-        </div>
+        return <Loader/>
     }
     
     

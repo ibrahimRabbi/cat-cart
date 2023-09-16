@@ -5,6 +5,7 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import Swal from 'sweetalert2';
 import useCart from '../coustomHooks/useCart';
 import { Context } from '../Authentication/AuthContext';
+import Loader from '../Loader/Loader';
 
 const SingleData = () => {
     const { id, category } = useParams()
@@ -55,7 +56,7 @@ const SingleData = () => {
             .then(res => res.json())
             .then(res => {
                 if (res?.insertedId) {
-                    navigate(`/${category}`)
+
                     refetch()
                     Swal.fire({
                         title: `${data.title} has been added to the cart`,
@@ -77,10 +78,14 @@ const SingleData = () => {
 
 
     useEffect(() => {
-        fetch(`https://cat-cart-server.vercel.app/id/${category}/${id}`)
+        fetch(`https://cat-cart-server.vercel.app/id/${id}`)
             .then(res => res.json())
             .then(res => setData(res))
     }, [])
+
+    if (data.length === 0) {
+        return <Loader />
+    }
 
 
     return (

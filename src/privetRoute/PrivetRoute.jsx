@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { Context } from '../Authentication/AuthContext';
 import { Navigate, useLocation } from 'react-router-dom';
-import { HashLoader } from 'react-spinners';
+import Loader from '../Loader/Loader';
+ 
 
 const PrivetRoute = ({ children }) => {
     
@@ -9,9 +10,7 @@ const PrivetRoute = ({ children }) => {
     const location = useLocation()
 
     if (loading) {
-        return <div className='h-[100vh] flex justify-center'>
-            <HashLoader className='mt-36' speedMultiplier={2} size={80} color="#36d7b7" />
-        </div>
+        return  <Loader/>
     }
     if (user) {
         return children

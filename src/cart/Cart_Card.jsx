@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import useCart from "../coustomHooks/useCart";
+import Sum from "./Sum";
+import Loader from "../Loader/Loader";
 
 
 
 const Card = ({ data }) => {
     const { img, size, qunty, title, price, _id: id } = data;
     const { refetch } = useCart()
+    const [loader, setLoader] = useState(false);
+
 
     const deleteHandler = () => {
+        setLoader(true)
         fetch(`https://cat-cart-server.vercel.app/cart/${id}`, { method: 'DELETE' })
             .then((res) => res.json())
             .then(() => {
                 refetch()
+                setLoader(false)
             });
+    }
+    if (loader) {
+        return <Loader />
     }
 
 

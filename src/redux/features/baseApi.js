@@ -14,9 +14,12 @@ export const getCartData = createApi({
         getUserInfo: build.query({
             query: (email) => `/user?email=${email}`
         }),
+        getSearch: build.query({
+            query: (title) => `/alldata?search=${title}`
+        })
 
     })
 })
 
-export const { useGetPostsQuery, useGetOrderHistoryQuery, useGetUserInfoQuery } = getCartData
+export const { useGetPostsQuery, useGetOrderHistoryQuery, useGetUserInfoQuery, useGetSearchQuery } = getCartData
 

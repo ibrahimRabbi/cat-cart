@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import useCart from "../coustomHooks/useCart";
 import { Context } from "../Authentication/AuthContext";
 import dateFormat from "dateformat";
+// import { useSelector } from "react-redux";
 
 
 const Sum = () => {
@@ -9,6 +10,8 @@ const Sum = () => {
     const { subTotal, totalAmount, totalQunty, totalDiscount, totalVat } = useCart()
     const { user } = useContext(Context)
     const date = new Date()
+    // const slice = useSelector((value) => value)
+    // console.log(slice)
 
 
 

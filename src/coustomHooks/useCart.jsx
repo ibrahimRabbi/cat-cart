@@ -33,13 +33,13 @@ export default useCart;
 
 // import { useQuery } from '@tanstack/react-query';
 // const { data: cartData = [], refetch } = useQuery({
-    //     queryKey: ['orderData'],
-    //     queryFn: async () => {
-    //         const fetching = await fetch('https://cat-cart-server.vercel.app/cart')
-    //         const converting = await fetching.json()
-    //         return converting
-    //     }
-    // })
+//     queryKey: ['orderData'],
+//     queryFn: async () => {
+//         const fetching = await fetch('https://cat-cart-server.vercel.app/cart')
+//         const converting = await fetching.json()
+//         return converting
+//     }
+// })
 
 
 
