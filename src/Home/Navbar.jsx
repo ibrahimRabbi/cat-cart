@@ -20,7 +20,6 @@ const Navber = () => {
         fetch(`https://cat-cart-server.vercel.app/alldata?search=${ref.current.value}`)
             .then(res => res.json())
             .then(res => {
-                ref.current.value = '';
                 navigate('/search', { state: { data: res, search: ref.current.value } })
             })
 
