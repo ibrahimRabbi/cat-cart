@@ -14,7 +14,7 @@ const Card = ({ data }) => {
 
     const deleteHandler = () => {
         setLoader(true)
-        fetch(`https://cat-cart-server.vercel.app/cart/${id}`, { method: 'DELETE' })
+        fetch(`http://localhost:5000/cart/${id}`, { method: 'DELETE' })
             .then((res) => res.json())
             .then(() => {
                 refetch()

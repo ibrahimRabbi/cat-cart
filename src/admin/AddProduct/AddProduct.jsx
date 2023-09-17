@@ -31,7 +31,7 @@ const AddProduct = () => {
                         specification: description,
                         moreImg: [img, img1, img2, img3, img4]
                     }
-                    fetch('https://cat-cart-server.vercel.app/alldata', {
+                    fetch('http://localhost:5000/alldata', {
                         method: 'POST',
                         headers: { 'content-type': 'application/json' },
                         body: JSON.stringify(obj)

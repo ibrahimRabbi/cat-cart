@@ -6,21 +6,27 @@ import Swal from 'sweetalert2';
 import useCart from '../coustomHooks/useCart';
 import { Context } from '../Authentication/AuthContext';
 import Loader from '../Loader/Loader';
+import SizeQuanty from '../Utility/SizeQuanty/SizeQuanty';
 
 const SingleData = () => {
     const { id, category } = useParams()
     const [data, setData] = useState([]);
-    const [qunty, setQunty] = useState(1);
-    const [size, setSize] = useState('')
     const navigate = useNavigate()
     const { refetch } = useCart()
     const { user } = useContext(Context)
     const images = [];
+    const [qunty, setQunty] = useState(1);
+    const [size, setSize] = useState('')
 
 
     data.moreImg?.forEach(v => {
         images.push({ original: v, thumbnail: v })
     })
+
+    const sizeHandler = (e) => {
+        setSize(e.target.value)
+    }
+    
 
     const incrementHandler = () => {
         setQunty((pre) => pre + 1);
@@ -34,10 +40,6 @@ const SingleData = () => {
     };
 
 
-    const sizeHandler = (e) => {
-        setSize(e.target.value)
-    }
-
     const addToBaghandler = () => {
         const cartData = {
             img: data.img,
@@ -48,7 +50,7 @@ const SingleData = () => {
             email: user?.email
         }
 
-        fetch("https://cat-cart-server.vercel.app/cart", {
+        fetch("http://localhost:5000/cart", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(cartData)
@@ -78,7 +80,7 @@ const SingleData = () => {
 
 
     useEffect(() => {
-        fetch(`https://cat-cart-server.vercel.app/id/${id}`)
+        fetch(`http://localhost:5000/id/${id}`)
             .then(res => res.json())
             .then(res => setData(res))
     }, [])
@@ -111,30 +113,13 @@ const SingleData = () => {
                     </p>
                     <p>Love</p>
                 </div>
-
-                <div className="text font-semibold lg:mt-10 mt-6 flex gap-12 items-center">
-                    <div>
-                        <p className="text-md">Size:</p>
-                        <select onChange={sizeHandler} value={size} className="size-selector border border-amber-500 p-2 rounded-md">
-                            <option defaultValue='M' selected disabled>choose a option...</option>
-                            <option>M</option>
-                            <option>S</option>
-                            <option>L</option>
-                            <option>XL</option>
-                            <option>2XL</option>
-                            <option>3XL</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <p className="text-md">Quantity:</p>
-                        <div className="flex size-selector border border-amber-500 rounded-lg px-2 items-center gap-2">
-                            <button onClick={decrimentHandler} className="text-amber-700 text-4xl">-</button>
-                            <span className='px-2'>{qunty}</span>
-                            <button onClick={incrementHandler} className="text-3xl text-amber-700">+</button>
-                        </div>
-                    </div>
-                </div>
+                <SizeQuanty
+                    size={size}
+                    sizeHandler={sizeHandler}
+                    incrementHandler={incrementHandler}
+                    decrimentHandler={decrimentHandler}
+                    qunty={qunty}
+                />
                 <div className="divider"></div>
 
                 <div className="flex gap-8 lg:mt-12 mt-5 items-center">

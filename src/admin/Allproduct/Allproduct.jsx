@@ -17,14 +17,14 @@ const Allproduct = () => {
         setCategory(e.target.value)
 
         if (e.target.value === 'all') {
-            fetch(`https://cat-cart-server.vercel.app/alldata`)
+            fetch(`http://localhost:5000/alldata`)
                 .then(res => res.json())
                 .then(res => {
                     setData(res)
                     setLoading(false)
                 })
         }
-        fetch(`https://cat-cart-server.vercel.app/category/${e.target.value}`)
+        fetch(`http://localhost:5000/category/${e.target.value}`)
             .then(res => res.json())
             .then(res => {
                 setData(res)
@@ -33,7 +33,7 @@ const Allproduct = () => {
     }
 
     useEffect(() => {
-        fetch(`https://cat-cart-server.vercel.app/alldata`)
+        fetch(`http://localhost:5000/alldata`)
             .then(res => res.json())
             .then(res => setData(res))
     }, [])
@@ -49,7 +49,7 @@ const Allproduct = () => {
             confirmButtonText: 'Yes,delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://cat-cart-server.vercel.app/alldata/${id}`, { method: 'DELETE' })
+                fetch(`http://localhost:5000/alldata/${id}`, { method: 'DELETE' })
                     .then(res => res.json())
                     .then(res => {
                         console.log(res)

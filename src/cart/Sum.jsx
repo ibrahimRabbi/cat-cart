@@ -26,7 +26,7 @@ const Sum = () => {
             phone: 8801986711517,
             date: dateFormat(date, "dddd, mmmm dS, yyyy, h:MM TT")
         }
-        fetch('https://cat-cart-server.vercel.app/payment', {
+        fetch('http://localhost:5000/payment', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(tran_history)

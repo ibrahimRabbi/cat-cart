@@ -41,7 +41,7 @@ const SignUp = () => {
                             .then(res => {
                                 profile(res.user, name, img, number)
                                 setError('')
-                                fetch('https://cat-cart-server.vercel.app/user', {
+                                fetch('http://localhost:5000/user', {
                                     method: "POST",
                                     headers: { 'content-type': 'application/json' },
                                     body: JSON.stringify(userObj)
@@ -164,7 +164,7 @@ export default SignUp;
 //             .then(res => {
 //                 profile(res.user, name, image)
 //                 setError('')
-//                 fetch('https://cat-cart-server.vercel.app/user', {
+//                 fetch('http://localhost:5000/user', {
 //                     method: "POST",
 //                     headers: { 'content-type': 'application/json' },
 //                     body: JSON.stringify(userObj)
