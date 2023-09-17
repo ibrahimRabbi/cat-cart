@@ -14,7 +14,7 @@ const SigninProvider = ({ redirect }) => {
     const googleHandler = () => {
         signinGoogle()
             .then(res => {
-                fetch(' http://localhost:5000/user', {
+                fetch(' https://cat-cart-server.vercel.app/user', {
                     method: "POST",
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify({ email: res.user.email, name: res.user.displayName })

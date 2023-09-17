@@ -43,11 +43,11 @@ const App = () => {
         {
           path: '/:category',
           element: <CategoryData />,
-          loader: ({ params }) => fetch(`http://localhost:5000/category/${params.category}`)
+          loader: ({ params }) => fetch(`https://cat-cart-server.vercel.app/category/${params.category}`)
         },
         {
           path: '/:category/:id',
-          element: <PrivetRoute><SingleData/></PrivetRoute>
+          element: <PrivetRoute><SingleData /></PrivetRoute>
         },
         {
           path: '/cart',

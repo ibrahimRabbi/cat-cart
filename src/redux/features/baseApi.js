@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const getCartData = createApi({
     reducerPath: 'getCartData',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://cat-cart-server.vercel.app' }),
     endpoints: (build) => ({
         getPosts: build.query({
             query: (email) => `/cart?email=${email}`
@@ -17,9 +17,8 @@ export const getCartData = createApi({
         getSearch: build.query({
             query: (title) => `/alldata?search=${title}`
         })
-
     })
 })
 
-export const { useGetPostsQuery, useGetOrderHistoryQuery, useGetUserInfoQuery, useGetSearchQuery } = getCartData
+export const { useGetPostsQuery, useGetOrderHistoryQuery, useGetUserInfoQuery, useGetSearchQuery} = getCartData
 

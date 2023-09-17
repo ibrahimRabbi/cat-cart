@@ -26,7 +26,7 @@ const SingleData = () => {
     const sizeHandler = (e) => {
         setSize(e.target.value)
     }
-    
+
 
     const incrementHandler = () => {
         setQunty((pre) => pre + 1);
@@ -50,7 +50,7 @@ const SingleData = () => {
             email: user?.email
         }
 
-        fetch("http://localhost:5000/cart", {
+        fetch("https://cat-cart-server.vercel.app/cart", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(cartData)
@@ -80,7 +80,7 @@ const SingleData = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/id/${id}`)
+        fetch(`https://cat-cart-server.vercel.app/id/${id}`)
             .then(res => res.json())
             .then(res => setData(res))
     }, [])

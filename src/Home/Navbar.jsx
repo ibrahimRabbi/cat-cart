@@ -17,7 +17,7 @@ const Navber = () => {
 
 
     const searchHandler = () => {
-        fetch(`http://localhost:5000/alldata?search=${ref.current.value}`)
+        fetch(`https://cat-cart-server.vercel.app/alldata?search=${ref.current.value}`)
             .then(res => res.json())
             .then(res => {
                 navigate('/search', { state: { data: res, search: ref.current.value } })

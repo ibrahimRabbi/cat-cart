@@ -11,7 +11,7 @@ const AuthContext = ({children}) => {
     const [loading, setLoading] = useState(true)
     
     const signup = (email, password) => {
-       // setLoading(false)
+       //setLoading(false)
         return createUserWithEmailAndPassword(auth, email, password)
        
     }

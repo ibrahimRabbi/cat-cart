@@ -38,11 +38,14 @@ const Signin = () => {
                     navigate(redirectTo)
                 })
                 .catch(error => {
+                    console.log(error.message) 
                     setLoading(false)
                     if (error.message == "Firebase: Error (auth/user-not-found).") {
                         setError('user is not exist in this application plz provied a valid password and email')
                     } else if (error.message == 'Firebase: Error (auth/wrong-password).') {
                         setError('invalid password plz provide a valid password')
+                    } else if (error.message == 'Firebase: Error (auth/invalid-login-credentials).') {
+                        setError('dont find and account please try again')
                     }
                 })
         }
