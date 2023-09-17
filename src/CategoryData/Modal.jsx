@@ -4,10 +4,11 @@ import SizeQuanty from '../Utility/SizeQuanty/SizeQuanty'
 import Swal from 'sweetalert2'
 import { Context } from '../Authentication/AuthContext'
 import useCart from '../coustomHooks/useCart'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Navigate, Link } from 'react-router-dom'
 
 export default function Modal({data, open, setIsOpen }) {
-    const { _id, img, title, specification, price } = data
+    const { _id, category, img, title, specification, price } = data
+    console.log(data)
     const [qunty, setQunty] = useState(1);
     const [size, setSize] = useState('')
     const {user} = useContext(Context)
@@ -34,40 +35,44 @@ export default function Modal({data, open, setIsOpen }) {
     };
 
     const addToBaghandler = () => {
-        const cartData = {
-            img: data.img,
-            title: data.title,
-            price: data.price,
-            qunty, size,
-            productId: data._id,
-            email: user?.email
-        }
+        if (!user) {
+            navigate('/signin')
+        } else {
+            const cartData = {
+                img: data.img,
+                title: data.title,
+                price: data.price,
+                qunty, size,
+                productId: data._id,
+                email: user?.email
+            }
 
-        fetch("http://localhost:5000/cart", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(cartData)
-        })
-            .then(res => res.json())
-            .then(res => {
-                if (res?.insertedId) {
-
-                    refetch()
-                    Swal.fire({
-                        title: `${data.title} has been added to the cart`,
-                        text: `quantity: ${qunty} size: ${size}`,
-                        icon: "success",
-                        showCancelButton: true,
-                        confirmButtonColor: "#8d5c2c",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Go to Cart",
-                    }).then((result) => {
-                        if (result.isConfirmed === true) {
-                            navigate("/cart");
-                        }
-                    });
-                }
+            fetch("http://localhost:5000/cart", {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(cartData)
             })
+                .then(res => res.json())
+                .then(res => {
+                    if (res?.insertedId) {
+
+                        refetch()
+                        Swal.fire({
+                            title: `${data.title} has been added to the cart`,
+                            text: `quantity: ${qunty} size: ${size}`,
+                            icon: "success",
+                            showCancelButton: true,
+                            confirmButtonColor: "#8d5c2c",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Go to Cart",
+                        }).then((result) => {
+                            if (result.isConfirmed === true) {
+                                navigate("/cart");
+                            }
+                        });
+                    }
+                }) 
+        }
     }
 
 
@@ -126,7 +131,7 @@ export default function Modal({data, open, setIsOpen }) {
                                             className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-5 py-2 text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                             onClick={closeModal}>cancel
                                         </button>
-                                        <button className="inline-flex justify-center rounded-md border border-transparent bg-amber-200 px-6 py-2 text-blue-900 hover:bg-amber-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2">View Detailes</button>
+                                        <Link to={`/${category}/${_id}`} className="inline-flex justify-center rounded-md border border-transparent bg-amber-200 px-6 py-2 text-blue-900 hover:bg-amber-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2">View Detailes</Link>
                                         <button onClick={addToBaghandler} className="inline-flex justify-center rounded-md border border-transparent bg-red-200 px-6 py-2 text-blue-900 hover:bg-red-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2">Add To Bag</button>
                                         </div>
                                         </div>

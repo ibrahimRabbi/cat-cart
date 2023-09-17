@@ -47,7 +47,7 @@ const App = () => {
         },
         {
           path: '/:category/:id',
-          element: <PrivetRoute><SingleData /></PrivetRoute>
+          element: <PrivetRoute><SingleData/></PrivetRoute>
         },
         {
           path: '/cart',
